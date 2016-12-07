@@ -15,5 +15,6 @@ define( 'FZ_RESUME_INC',     FZ_RESUME_PATH . 'includes/' );
 
 // Include files
 require_once FZ_RESUME_INC . 'setup.php';
+require_once FZ_RESUME_INC . 'meta.php';
 
 setup();
