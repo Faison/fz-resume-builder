@@ -12,18 +12,23 @@
 		</button>
 		<h2 class="hndle ui-sortable-handle"><span>Resume Sections</span></h2>
 		<div class="inside">
-			<div class="meta-fields">
-
-			</div>
+			<div class="meta-fields-test"></div>
+			<ul class="meta-fields"></ul>
 			<button>Add a List</button>
 		</div>
 	</div>
 </script>
 
-<script type="text/x-handlebars-template" id="fz-resume-template-meta-box-inside">
-	<ul>
+<script type="text/x-handlebars-template" id="fz-resume-template-meta-field-wrap">
+	<li>
+		<span class="fz-resume-handle dashicons dashicons-sort"></span>
+		<div class="meta-field-inside"></div>
+		<span class="fz-resume-remove dashicons dashicons-dismiss"></span>
+	</li>
+</script>
 
-	</ul>
+<script type="text/x-handlebars-template" id="fz-resume-template-meta-field-section-title">
+	<label>Section Title: <input type="text" value="{{ value }}" /></label>
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-list">

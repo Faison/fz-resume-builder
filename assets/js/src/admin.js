@@ -6,30 +6,83 @@
 let $ = window.jQuery;
 let Handlebars = window.Handlebars;
 
-let data = {
-	items : [
-		'item 1',
-		'item 2',
-		'item 40'
-	]
-};
+let data = [
+	{
+		field: 'section-title',
+		value: 'Experience'
+	},
+	{
+		field: 'section-title',
+		value: 'Shazam!'
+	}
+];
 
 let meta_box_area = $( document.getElementById( 'postbox-container-2' ) );
 let meta_box = null;
 let meta_box_template = $( document.getElementById( 'fz-resume-template-meta-box' ) );
 let list_template = $( document.getElementById( 'fz-resume-template-list' ) );
 
+let meta_field_wrap_template = $( document.getElementById( 'fz-resume-template-meta-field-wrap' ) );
+let meta_field_section_title_template = $( document.getElementById( 'fz-resume-template-meta-field-section-title' ) );
+
+let Field = Backbone.Model.extend( {
+	defaults: function() {
+		return {
+			field: '',
+			value: ''
+		};
+	}
+} );
+
+let Field_Collection = Backbone.Collection.extend( {
+	model: Field
+} );
+
+let FieldView = Backbone.View.extend( {
+	wrap_template: Handlebars.compile( meta_field_wrap_template.html() ),
+	template: Handlebars.compile( meta_field_section_title_template.html() ),
+	fetch: function() {
+		return [];
+	},
+	render: function() {
+		let $wrap = $( this.wrap_template() );
+		$wrap.find( '.meta-field-inside').append( this.template( this.model.toJSON() ) );
+
+		this.$el.html( $wrap );
+		return this;
+	}
+} );
+
+let MetaView = Backbone.View.extend( {
+	template: Handlebars.compile( meta_box_template.html() ),
+	initialize: function() {
+		this.$el = $( '<div></div>' );
+		meta_box_area.prepend( this.$el );
+
+		this.field_collection = new Field_Collection( data );
+
+		this.listenTo( this.field_collection, 'add', this.render_fields );
+
+		this.render();
+		this.field_collection.each( this.render_fields, this );
+	},
+	render: function() {
+		this.$el.html( this.template() );
+	},
+	render_fields: function( field ) {
+		let view = new FieldView( { model: field } );
+		this.$('.meta-fields').append( view.render().el );
+	},
+	add_fields: function( data ) {
+		for ( let i = 0; i < data.length; i++ ) {
+			this.field_collection.add( data[ i ] );
+		}
+	}
+
+} );
+
 $( document ).ready( function() {
-	console.log( 'hi' );
+	var meta_view = new MetaView();
 
-	var source   = meta_box_template.html();
-	var template = Handlebars.compile( source );
-
-	meta_box = $( template() );
-
-	meta_box_area.prepend( meta_box );
-
-	var temp2 = Handlebars.compile( list_template.html() );
-	meta_box.find( '.meta-fields' ).append( temp2( data ) );
-
+	window.mv = meta_view;
 } );
