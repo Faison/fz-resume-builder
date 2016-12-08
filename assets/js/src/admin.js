@@ -20,8 +20,19 @@ let field_types = {
 	}
 };
 
+let data = [
+	{
+		field: 'section-title',
+		value: 'Experience'
+	},
+	{
+		field: 'section-title',
+		value: 'Shazam!'
+	}
+];
+
 $( document ).ready( function() {
-	resume_builder.register_field_types( field_types );
+	resume_builder.init( field_types, data );
 
 	var meta_view = new builder_view.Builder_View();
 

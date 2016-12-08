@@ -11,12 +11,33 @@ import field_type_manager from './field-type-manager';
 import field_model from './field-model';
 
 /**
+ * Initializes the Resume Builder.
+ *
+ * @summary Initializes the Resume Builder.
+ *
+ * @since 0.1.0
+ * @access public
+ *
+ * @param {Object}   field_types - Field types to register, indexed by their unique field type name.
+ * @param {Object[]} data        - The data to populate the Resume Builder with.
+ *
+ * @return {boolean} true if successful, false if not.
+ */
+function init( field_types, data ) {
+	let registration_success = register_field_types( field_types );
+
+	if ( ! registration_success ) {
+		return false;
+	}
+}
+
+/**
  * Registers field types to use in the Resume Builder.
  *
  * @summary Registers field types to use in the Resume Builder.
  *
  * @since 0.1.0
- * @access public
+ * @access private
  *
  * @param {Object} field_types - Field types to register, indexed by their unique field type name.
  *
@@ -42,5 +63,5 @@ function register_field_types( field_types ) {
 }
 
 export default {
-	register_field_types
+	init
 };
