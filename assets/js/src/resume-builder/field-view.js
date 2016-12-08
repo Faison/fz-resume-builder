@@ -122,12 +122,16 @@ let Field_View = window.Backbone.View.extend( {
 	repeater_template: '',
 	repeater_wrap_template: '',
 	events: {
+		'click .add-list-item-button': 'add_repeater_item',
 		'click .fz-resume-list-remove': 'remove_repeater_item'
 	},
 	initialize: field_view_initialize,
 	render: field_view_render,
 	render_repeater_field: field_view_render_repeater_field,
 	render_repeater_item: field_view_render_repeater_item,
+	add_repeater_item: function( e ) {
+		this.render_repeater_item();
+	},
 	remove_repeater_item: function( e ) {
 		e.target.parentElement.remove();
 	}
