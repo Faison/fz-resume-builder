@@ -100,6 +100,11 @@ function builder_view_initialize() {
 	meta_box_area.prepend( this.$el );
 
 	this.render();
+
+	this.$( '.meta-fields' ).sortable( {
+		items: '> li',
+		handle: '> .fz-resume-handle'
+	} );
 }
 
 /**
