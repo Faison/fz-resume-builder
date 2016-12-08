@@ -123,7 +123,8 @@ let Field_View = window.Backbone.View.extend( {
 	repeater_wrap_template: '',
 	initialize: field_view_initialize,
 	render: field_view_render,
-	render_repeater_field: field_view_render_repeater_field
+	render_repeater_field: field_view_render_repeater_field,
+	render_repeater_item: field_view_render_repeater_item
 } );
 
 /**
@@ -161,15 +162,13 @@ function field_view_render() {
 	this.$el.html( this.wrap_template() );
 
 	let field_type = this.model.get( 'field' );
-	let field      = '';
 
 	if ( field_type_is_a_repeater( field_type ) ) {
-		field = this.render_repeater_field();
+		this.render_repeater_field();
 	} else {
-		field = field_templates[ field_type ]( this.model.toJSON() );
+		let field = field_templates[ field_type ]( this.model.toJSON() );
+		this.$el.find( '.meta-field-inside').append( field );
 	}
-
-	this.$el.find( '.meta-field-inside').append( field );
 
 	return this;
 }
@@ -192,19 +191,35 @@ function field_view_render_repeater_field() {
 	}
 
 	let repeater   = window.jQuery( this.repeater_template() );
-	let list       = repeater.find( '.list-items' );
+	this.$el.find( '.meta-field-inside').append( repeater );
 
 	let model_object = this.model.toJSON();
 
 	if ( model_object.value && model_object.value.items ) {
 		for ( let i = 0; i < model_object.value.items.length; i++ ) {
-			list.append( this.repeater_wrap_template( model_object.value.items[ i ] ) );
+			this.render_repeater_item( model_object.value.items[ i ] );
 		}
 	}
+}
 
+/**
+ * The render function for single Repeater Field Item, used in the Field_View Backbone View.
+ *
+ * @summary The render function for single Repeater Field Item.
+ *
+ * @since 0.1.0
+ * @access private
+ *
+ * @param {Object|string} item - The item value to render in the repeater field.
+ */
+function field_view_render_repeater_item( item ) {
+	let field_type = this.model.get( 'field' );
+	let wrap       = window.jQuery( this.repeater_wrap_template() );
+	let item_field = field_templates[ field_type ]( item );
 
-	return repeater;
+	wrap.find( '.list-item-inside').append( item_field );
 
+	this.$el.find( '.list-items').append( wrap );
 }
 
 export default {
