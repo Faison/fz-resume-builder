@@ -3,8 +3,21 @@
  *
  */
 
+import resume_builder from './resume-builder/resume-builder';
+
 let $ = window.jQuery;
 let Handlebars = window.Handlebars;
+
+let field_types = {
+	'section-title': {
+		'name': 'Section Title',
+		'template_id': 'fz-resume-template-meta-field-section-title'
+	},
+	'subsection-title': {
+		'name': 'Subsection Title',
+		'template_id': 'fz-resume-template-meta-field-subsection-title'
+	}
+};
 
 let data = [
 	{
@@ -62,8 +75,6 @@ let FieldView = Backbone.View.extend( {
 	}
 } );
 
-let S
-
 let MetaView = Backbone.View.extend( {
 	tagName: 'div',
 	template: Handlebars.compile( meta_box_template.html() ),
@@ -103,4 +114,6 @@ $( document ).ready( function() {
 	var meta_view = new MetaView();
 
 	window.mv = meta_view;
+
+	resume_builder.register_field_types( field_types );
 } );
