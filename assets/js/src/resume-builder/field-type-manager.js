@@ -9,6 +9,7 @@
  */
 
 import field_view from './field-view';
+import builder_view from './builder-view';
 
 /**
  * A collection of Field Type data, indexed by the unique field type name.
@@ -57,9 +58,15 @@ function register_field_type( field_type, options ) {
 		return false;
 	}
 
-	let view_success = field_view.register_field_type_template( field_type, options.template_id );
+	let field_view_success = field_view.register_field_type_template( field_type, options.template_id );
 
-	if ( ! view_success ) {
+	if ( ! field_view_success ) {
+		return false;
+	}
+
+	let builder_view_success = builder_view.register_field_type_button( field_type, options.name );
+
+	if ( ! builder_view_success ) {
 		return false;
 	}
 
