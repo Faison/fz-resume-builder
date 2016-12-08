@@ -119,13 +119,16 @@ function field_type_is_a_repeater( field_type ) {
 let Field_View = window.Backbone.View.extend( {
 	tagName: 'li',
 	wrap_template: '',
+	repeater_template: '',
+	repeater_wrap_template: '',
 	initialize: field_view_initialize,
 	render: field_view_render
 } );
 
 /**
  * The initialization function for Field Views, used in the Field_View Backbone View.
- * Makes sure the View has a copy of the field wrap template.
+ * Makes sure the View has a copy of the field wrap template, repeater template
+ * and repeater item wrap template.
  *
  * @summary The initialization function for Field Views.
  *
@@ -135,6 +138,12 @@ let Field_View = window.Backbone.View.extend( {
 function field_view_initialize() {
 	let wrap_el = document.getElementById( 'fz-resume-template-meta-field-wrap' );
 	this.wrap_template = Handlebars.compile( wrap_el.innerHTML );
+
+	let repeater_el = document.getElementById( 'fz-resume-template-meta-repeater' );
+	this.repeater_template = Handlebars.compile( repeater_el.innerHTML );
+
+	let repeater_wrap_el = document.getElementById( 'fz-resume-template-meta-repeater-item-wrap' );
+	this.repeater_wrap_template = Handlebars.compile( repeater_wrap_el.innerHTML );
 }
 
 /**
