@@ -4,6 +4,7 @@
  */
 
 import resume_builder from './resume-builder/resume-builder';
+import field_view from './resume-builder/field-view';
 
 let $ = window.jQuery;
 let Handlebars = window.Handlebars;
@@ -35,10 +36,6 @@ let meta_box = null;
 let meta_box_template = $( document.getElementById( 'fz-resume-template-meta-box' ) );
 let list_template = $( document.getElementById( 'fz-resume-template-list' ) );
 
-let meta_field_wrap_template = $( document.getElementById( 'fz-resume-template-meta-field-wrap' ) );
-let meta_field_section_title_template = $( document.getElementById( 'fz-resume-template-meta-field-section-title' ) );
-let meta_field_subsection_title_template = $( document.getElementById( 'fz-resume-template-meta-field-subsection-title' ) );
-
 let Field = Backbone.Model.extend( {
 	defaults: function() {
 		return {
@@ -50,26 +47,6 @@ let Field = Backbone.Model.extend( {
 
 let Field_Collection = Backbone.Collection.extend( {
 	model: Field
-} );
-
-let field_templates = {
-	'section-title': Handlebars.compile( meta_field_section_title_template.html() ),
-	'subsection-title': Handlebars.compile( meta_field_subsection_title_template.html() )
-};
-
-
-let FieldView = Backbone.View.extend( {
-	tagName: 'li',
-	wrap_template: Handlebars.compile( meta_field_wrap_template.html() ),
-	render: function() {
-		this.$el.html( this.wrap_template() );
-
-		let field_type = this.model.get( 'field' );
-
-		this.$el.find( '.meta-field-inside').append( field_templates[ field_type ]( this.model.toJSON() ) );
-
-		return this;
-	}
 } );
 
 let MetaView = Backbone.View.extend( {
@@ -93,7 +70,7 @@ let MetaView = Backbone.View.extend( {
 		this.$el.html( this.template() );
 	},
 	render_fields: function( field ) {
-		let view = new FieldView( { model: field } );
+		let view = new field_view.Field_View( { model: field } );
 		this.$('.meta-fields').append( view.render().el );
 	},
 	add_field: function( e ) {
@@ -108,9 +85,9 @@ let MetaView = Backbone.View.extend( {
 } );
 
 $( document ).ready( function() {
+	resume_builder.register_field_types( field_types );
+
 	var meta_view = new MetaView();
 
 	window.mv = meta_view;
-
-	resume_builder.register_field_types( field_types );
 } );

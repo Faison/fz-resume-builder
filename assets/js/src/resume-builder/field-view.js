@@ -52,6 +52,34 @@ function register_field_type_template( field_type, template_id ) {
 	return true;
 }
 
+/**
+ * The Backbone View for Fields.
+ *
+ * @summary The Backbone View for Fields.
+ *
+ * @since 0.1.0
+ * @access public
+ *
+ * @type {Backbone.View}
+ */
+let Field_View = window.Backbone.View.extend( {
+	tagName: 'li',
+	wrap_template: '',
+	initialize: function() {
+		let wrap_el = document.getElementById( 'fz-resume-template-meta-field-wrap' );
+		this.wrap_template = Handlebars.compile( wrap_el.innerHTML );
+	},
+	render: function() {
+		this.$el.html( this.wrap_template() );
+
+		let field_type = this.model.get( 'field' );
+
+		this.$el.find( '.meta-field-inside').append( field_templates[ field_type ]( this.model.toJSON() ) );
+
+		return this;
+	}
+} );
+
 export default {
-	register_field_type_template
+	register_field_type_template, Field_View
 };
