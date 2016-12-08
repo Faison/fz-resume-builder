@@ -20,6 +20,18 @@
 let field_templates = {};
 
 /**
+ * A collection of Field Type names that were registered as repeater fields.
+ *
+ * @summary A collection of Field Type names that were registered as repeater fields.
+ *
+ * @since 0.1.0
+ * @access private
+ *
+ * @type {string[]}
+ */
+let repeater_fields = [];
+
+/**
  * Registers a field type template with the Field View.
  *
  * @summary Registers a field type template with the Field View.
@@ -50,6 +62,48 @@ function register_field_type_template( field_type, template_id ) {
 	field_templates[ field_type ] = window.Handlebars.compile( template_el.innerHTML );
 
 	return true;
+}
+
+/**
+ * Registers a field type as a Repeater Field with the Field View.
+ *
+ * @summary Registers a field type as a Repeater Field with the Field View.
+ *
+ * @since 0.1.0
+ * @access public
+ *
+ * @param {string} field_type - A unique name for the field type.
+ */
+function register_repeater_field_type( field_type ) {
+	if ( ! field_type ) {
+		return;
+	}
+
+	if ( field_type_is_a_repeater( field_type ) ) {
+		return;
+	}
+
+	repeater_fields.push( field_type );
+}
+
+/**
+ * Checks if the specified field type is a Repeater Field.
+ *
+ * @summary Checks if the specified field type is a Repeater Field.
+ *
+ * @since 0.1.0
+ * @access private
+ *
+ * @param {string} field_type - A unique name for the field type.
+ *
+ * @return {boolean} true if it is a repeater, false if not.
+ */
+function field_type_is_a_repeater( field_type ) {
+	if ( ! field_type ) {
+		return false;
+	}
+
+	return ( -1 !== repeater_fields.indexOf( field_type ) );
 }
 
 /**
@@ -104,5 +158,5 @@ function field_view_render() {
 }
 
 export default {
-	register_field_type_template, Field_View
+	register_field_type_template, register_repeater_field_type, Field_View
 };

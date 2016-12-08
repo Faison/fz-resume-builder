@@ -19,6 +19,11 @@ let field_types = {
 	'experience': {
 		'label': 'Experience',
 		'template_id': 'fz-resume-template-meta-field-experience'
+	},
+	'list': {
+		'label': 'List',
+		'repeater': true,
+		'template_id': 'fz-resume-template-meta-field-list-item'
 	}
 };
 

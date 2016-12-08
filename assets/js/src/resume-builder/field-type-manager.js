@@ -70,6 +70,10 @@ function register_field_type( field_type, options ) {
 		return false;
 	}
 
+	if ( options.repeater ) {
+		field_view.register_repeater_field_type( field_type );
+	}
+
 	field_types[ field_type ] = options;
 
 	return true;
