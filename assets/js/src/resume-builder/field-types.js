@@ -8,6 +8,8 @@
  * @since 0.1.0
  */
 
+import field_view from './field-view';
+
 /**
  * A collection of Field Type data, indexed by the unique field type name.
  *
@@ -19,18 +21,6 @@
  * @type {Object}
  */
 let field_types = {};
-
-/**
- * A collection of Field Type Templates, indexed by the unique field type name.
- *
- * @summary A collection of Field Type Templates.
- *
- * @since 0.1.0
- * @access private
- *
- * @type {Object}
- */
-let field_templates = {};
 
 /**
  * Registers a field type for use with the Resume Builder.
@@ -67,16 +57,13 @@ function register_field_type( field_type, options ) {
 		return false;
 	}
 
-	let template_el = document.getElementById( options.template_id );
+	let view_success = field_view.register_field_type_template( field_type, options.template_id );
 
-	if ( ! template_el ) {
+	if ( ! view_success ) {
 		return false;
 	}
 
-	let template = window.Handlebars.compile( template_el.innerHTML );
-
 	field_types[ field_type ] = options;
-	field_templates[ field_type ] = template;
 
 	return true;
 }
