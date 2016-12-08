@@ -121,10 +121,16 @@ let Field_View = window.Backbone.View.extend( {
 	wrap_template: '',
 	repeater_template: '',
 	repeater_wrap_template: '',
+	events: {
+		'click .fz-resume-list-remove': 'remove_repeater_item'
+	},
 	initialize: field_view_initialize,
 	render: field_view_render,
 	render_repeater_field: field_view_render_repeater_field,
-	render_repeater_item: field_view_render_repeater_item
+	render_repeater_item: field_view_render_repeater_item,
+	remove_repeater_item: function( e ) {
+		e.target.parentElement.remove();
+	}
 } );
 
 /**
