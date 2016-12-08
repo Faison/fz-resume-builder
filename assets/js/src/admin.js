@@ -61,9 +61,6 @@ let field_templates = {
 let FieldView = Backbone.View.extend( {
 	tagName: 'li',
 	wrap_template: Handlebars.compile( meta_field_wrap_template.html() ),
-	fetch: function() {
-		return [];
-	},
 	render: function() {
 		this.$el.html( this.wrap_template() );
 
