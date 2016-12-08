@@ -14,7 +14,7 @@
 		<div class="inside">
 			<div class="meta-fields-test"></div>
 			<ul class="meta-fields"></ul>
-			<button>Add a List</button>
+			Add: <button type="button" class="add-button" data-field-type="section-title">Section Title</button>
 		</div>
 	</div>
 </script>

@@ -57,6 +57,10 @@ let FieldView = Backbone.View.extend( {
 let MetaView = Backbone.View.extend( {
 	tagName: 'div',
 	template: Handlebars.compile( meta_box_template.html() ),
+	events: {
+		'click .add-button': 'add_field',
+		'click .fz-resume-remove': 'remove_field'
+	},
 	initialize: function() {
 		meta_box_area.prepend( this.$el );
 
@@ -74,10 +78,13 @@ let MetaView = Backbone.View.extend( {
 		let view = new FieldView( { model: field } );
 		this.$('.meta-fields').append( view.render().el );
 	},
-	add_fields: function( data ) {
-		for ( let i = 0; i < data.length; i++ ) {
-			this.field_collection.add( data[ i ] );
-		}
+	add_field: function( e ) {
+		let field_type = e.target.getAttribute( 'data-field-type' );
+
+		this.field_collection.add( { field_type: field_type } );
+	},
+	remove_field: function( e ) {
+		e.target.parentElement.remove();
 	}
 
 } );
