@@ -39,24 +39,25 @@ let Field_Collection = Backbone.Collection.extend( {
 } );
 
 let FieldView = Backbone.View.extend( {
+	tagName: 'li',
 	wrap_template: Handlebars.compile( meta_field_wrap_template.html() ),
 	template: Handlebars.compile( meta_field_section_title_template.html() ),
 	fetch: function() {
 		return [];
 	},
 	render: function() {
-		let $wrap = $( this.wrap_template() );
-		$wrap.find( '.meta-field-inside').append( this.template( this.model.toJSON() ) );
+		this.$el.html( this.wrap_template() );
 
-		this.$el.html( $wrap );
+		this.$el.find( '.meta-field-inside').append( this.template( this.model.toJSON() ) );
+
 		return this;
 	}
 } );
 
 let MetaView = Backbone.View.extend( {
+	tagName: 'div',
 	template: Handlebars.compile( meta_box_template.html() ),
 	initialize: function() {
-		this.$el = $( '<div></div>' );
 		meta_box_area.prepend( this.$el );
 
 		this.field_collection = new Field_Collection( data );
