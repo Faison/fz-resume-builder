@@ -8,6 +8,8 @@
  * @since 0.1.0
  */
 
+import field_view from './field-view';
+
 /**
  * A collection of Field Type Button Labels, indexed by the unique field type name.
  *
@@ -53,6 +55,56 @@ function register_field_type_button( field_type, field_label ) {
 	return true;
 }
 
+let data = [
+	{
+		field: 'section-title',
+		value: 'Experience'
+	},
+	{
+		field: 'section-title',
+		value: 'Shazam!'
+	}
+];
+
+let Builder_View = Backbone.View.extend( {
+	tagName: 'div',
+	template: '',
+	events: {
+		'click .add-button': 'add_field',
+		'click .fz-resume-remove': 'remove_field'
+	},
+	initialize: function() {
+		let template_el = document.getElementById( 'fz-resume-template-meta-box' );
+		this.template = Handlebars.compile( template_el.innerHTML );
+
+		let meta_box_area = window.jQuery( document.getElementById( 'postbox-container-2' ) );
+
+		meta_box_area.prepend( this.$el );
+
+		this.field_collection = new Field_Collection( data );
+
+		this.listenTo( this.field_collection, 'add', this.render_fields );
+
+		this.render();
+		this.field_collection.each( this.render_fields, this );
+	},
+	render: function() {
+		this.$el.html( this.template() );
+	},
+	render_fields: function( field ) {
+		let view = new field_view.Field_View( { model: field } );
+		this.$('.meta-fields').append( view.render().el );
+	},
+	add_field: function( e ) {
+		let field_type = e.target.getAttribute( 'data-field-type' );
+
+		this.field_collection.add( { field: field_type } );
+	},
+	remove_field: function( e ) {
+		e.target.parentElement.remove();
+	}
+} );
+
 export default {
-	register_field_type_button
+	register_field_type_button, Builder_View
 };
