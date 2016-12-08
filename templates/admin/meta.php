@@ -14,7 +14,9 @@
 		<div class="inside">
 			<div class="meta-fields-test"></div>
 			<ul class="meta-fields"></ul>
-			Add: <button type="button" class="add-button" data-field-type="section-title">Section Title</button>
+			Add:
+			<button type="button" class="add-button" data-field-type="section-title">Section Title</button>
+			<button type="button" class="add-button" data-field-type="subsection-title">Subsection Title</button>
 		</div>
 	</div>
 </script>
@@ -27,6 +29,10 @@
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-field-section-title">
 	<label>Section Title: <input type="text" value="{{ value }}" /></label>
+</script>
+
+<script type="text/x-handlebars-template" id="fz-resume-template-meta-field-subsection-title">
+	<label>Subsection Title: <input type="text" value="{{ value }}" /></label>
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-list">

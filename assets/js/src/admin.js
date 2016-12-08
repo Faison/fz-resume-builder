@@ -24,6 +24,7 @@ let list_template = $( document.getElementById( 'fz-resume-template-list' ) );
 
 let meta_field_wrap_template = $( document.getElementById( 'fz-resume-template-meta-field-wrap' ) );
 let meta_field_section_title_template = $( document.getElementById( 'fz-resume-template-meta-field-section-title' ) );
+let meta_field_subsection_title_template = $( document.getElementById( 'fz-resume-template-meta-field-subsection-title' ) );
 
 let Field = Backbone.Model.extend( {
 	defaults: function() {
@@ -38,21 +39,30 @@ let Field_Collection = Backbone.Collection.extend( {
 	model: Field
 } );
 
+let field_templates = {
+	'section-title': Handlebars.compile( meta_field_section_title_template.html() ),
+	'subsection-title': Handlebars.compile( meta_field_subsection_title_template.html() )
+};
+
+
 let FieldView = Backbone.View.extend( {
 	tagName: 'li',
 	wrap_template: Handlebars.compile( meta_field_wrap_template.html() ),
-	template: Handlebars.compile( meta_field_section_title_template.html() ),
 	fetch: function() {
 		return [];
 	},
 	render: function() {
 		this.$el.html( this.wrap_template() );
 
-		this.$el.find( '.meta-field-inside').append( this.template( this.model.toJSON() ) );
+		let field_type = this.model.get( 'field' );
+
+		this.$el.find( '.meta-field-inside').append( field_templates[ field_type ]( this.model.toJSON() ) );
 
 		return this;
 	}
 } );
+
+let S
 
 let MetaView = Backbone.View.extend( {
 	tagName: 'div',
@@ -81,7 +91,7 @@ let MetaView = Backbone.View.extend( {
 	add_field: function( e ) {
 		let field_type = e.target.getAttribute( 'data-field-type' );
 
-		this.field_collection.add( { field_type: field_type } );
+		this.field_collection.add( { field: field_type } );
 	},
 	remove_field: function( e ) {
 		e.target.parentElement.remove();
