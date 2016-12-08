@@ -146,6 +146,17 @@ function field_view_initialize() {
 
 	let repeater_wrap_el = document.getElementById( 'fz-resume-template-meta-repeater-item-wrap' );
 	this.repeater_wrap_template = Handlebars.compile( repeater_wrap_el.innerHTML );
+
+	this.render();
+
+	let field_type = this.model.get( 'field' );
+
+	if ( field_type_is_a_repeater( field_type ) ) {
+		this.$el.sortable( {
+			items: '.list-items > li',
+			handle: '> .fz-resume-list-handle'
+		} );
+	}
 }
 
 /**
