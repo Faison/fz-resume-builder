@@ -67,6 +67,16 @@ let data = [
 	}
 ];
 
+/**
+ * The Backbone View for the Builder.
+ *
+ * @summary The Backbone View for the Builder.
+ *
+ * @since 0.1.0
+ * @access public
+ *
+ * @type {Backbone.View}
+ */
 let Builder_View = Backbone.View.extend( {
 	tagName: 'div',
 	template: '',
