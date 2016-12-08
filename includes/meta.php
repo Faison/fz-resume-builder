@@ -25,7 +25,7 @@ function enqueue_meta_scripts() {
 	wp_enqueue_script(
 		'fz-resume-admin',
 		FZ_RESUME_URL . '/assets/js/admin.js',
-		array( 'jquery', 'fz-resume-handlebars' ),
+		array( 'fz-resume-handlebars', 'jquery', 'backbone', 'underscore', 'jquery-ui-sortable' ),
 		FZ_RESUME_VERSION,
 		true
 	);
