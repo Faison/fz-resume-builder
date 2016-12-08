@@ -73,32 +73,76 @@ let Builder_View = Backbone.View.extend( {
 		'click .add-button': 'add_field',
 		'click .fz-resume-remove': 'remove_field'
 	},
-	initialize: function() {
-		let template_el = document.getElementById( 'fz-resume-template-meta-box' );
-		this.template = Handlebars.compile( template_el.innerHTML );
-
-		let meta_box_area = window.jQuery( document.getElementById( 'postbox-container-2' ) );
-
-		meta_box_area.prepend( this.$el );
-
-		this.render();
-	},
-	render: function() {
-		this.$el.html( this.template() );
-	},
-	render_fields: function( field ) {
-		let view = new field_view.Field_View( { model: field } );
-		this.$('.meta-fields').append( view.render().el );
-	},
-	add_field: function( e ) {
-		let field_type = e.target.getAttribute( 'data-field-type' );
-
-		this.trigger( 'add-field-click', field_type, this );
-	},
+	initialize: builder_view_initialize,
+	render: builder_view_render,
+	render_fields: builder_view_render_fields,
+	add_field: builder_view_add_view_handler,
 	remove_field: function( e ) {
 		e.target.parentElement.remove();
 	}
 } );
+
+/**
+ * The initialization function for Builder Views, used in the Builder_View Backbone View.
+ * Makes sure the View has a copy of the builder view template and is attached to the page.
+ *
+ * @summary The initialization function for Builder Views.
+ *
+ * @since 0.1.0
+ * @access private
+ */
+function builder_view_initialize() {
+	let template_el = document.getElementById( 'fz-resume-template-meta-box' );
+	this.template = Handlebars.compile( template_el.innerHTML );
+
+	let meta_box_area = window.jQuery( document.getElementById( 'postbox-container-2' ) );
+
+	meta_box_area.prepend( this.$el );
+
+	this.render();
+}
+
+/**
+ * The render function for Builder Views, used in the Field_View Backbone View.
+ *
+ * @summary The render function for Builder Views.
+ *
+ * @since 0.1.0
+ * @access private
+ */
+function builder_view_render() {
+	this.$el.html( this.template() );
+}
+
+/**
+ * Renders fields on a Builder Views, used in the Builder_View Backbone View.
+ *
+ * @summary Renders fields on a Builder Views.
+ *
+ * @since 0.1.0
+ * @access private
+ */
+function builder_view_render_fields( field ) {
+	let view = new field_view.Field_View( { model: field } );
+	this.$('.meta-fields').append( view.render().el );
+}
+
+/**
+ * Handles an Add Button click on a Builder View, used in the Builder_View Backbone View.
+ * Triggers an 'add-field-click' event with the field type selected and the Build_View it belongs to.
+ *
+ * @summary Handles an Add Button click on a Builder View.
+ *
+ * @since 0.1.0
+ * @access private
+ *
+ * @param {Object} e - The click event object.
+ */
+function builder_view_add_view_handler( e ) {
+	let field_type = e.target.getAttribute( 'data-field-type' );
+
+	this.trigger( 'add-field-click', field_type, this );
+}
 
 export default {
 	register_field_type_button, Builder_View
