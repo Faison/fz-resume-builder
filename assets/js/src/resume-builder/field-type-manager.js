@@ -1,9 +1,9 @@
 /**
- * The Functions for Field Types used in the Resume Builder.
- * Acts as the single authority for what Field Types are
- * registered to use in the Resume Builder.
+ * The Field Type Manager for the Resume Builder.
+ * Acts as the single authority for what Field Types are registered
+ * and makes sure other components have what they need regarding Field Types.
  *
- * @summary The Functions for Field Types used in the Resume Builder.
+ * @summary The Field Type Manager for the Resume Builder.
  *
  * @since 0.1.0
  */
