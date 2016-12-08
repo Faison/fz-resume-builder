@@ -44,17 +44,21 @@
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-repeater">
-	<ul class="list-items">
-	</ul>
-	<button type="button" class="add-list-item-button">Add Item</button>
+	<div>
+		<ul class="list-items">
+		</ul>
+		<button type="button" class="add-list-item-button">Add Item</button>
+	</div>
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-repeater-item-wrap">
-	<span class="fz-resume-list-handle dashicons dashicons-sort"></span>
-	<div class="list-item-inside"></div>
-	<span class="fz-resume-list-remove dashicons dashicons-dismiss"></span>
+	<li>
+		<span class="fz-resume-list-handle dashicons dashicons-sort"></span>
+		<div class="list-item-inside"></div>
+		<span class="fz-resume-list-remove dashicons dashicons-dismiss"></span>
+	</li>
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-field-list-item">
-	<input type="text" value="{{ value }}" />
+	<input type="text" value="{{ this }}" />
 </script>

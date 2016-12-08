@@ -122,7 +122,8 @@ let Field_View = window.Backbone.View.extend( {
 	repeater_template: '',
 	repeater_wrap_template: '',
 	initialize: field_view_initialize,
-	render: field_view_render
+	render: field_view_render,
+	render_repeater_field: field_view_render_repeater_field
 } );
 
 /**
@@ -160,10 +161,50 @@ function field_view_render() {
 	this.$el.html( this.wrap_template() );
 
 	let field_type = this.model.get( 'field' );
+	let field      = '';
 
-	this.$el.find( '.meta-field-inside').append( field_templates[ field_type ]( this.model.toJSON() ) );
+	if ( field_type_is_a_repeater( field_type ) ) {
+		field = this.render_repeater_field();
+	} else {
+		field = field_templates[ field_type ]( this.model.toJSON() );
+	}
+
+	this.$el.find( '.meta-field-inside').append( field );
 
 	return this;
+}
+
+/**
+ * The render function for Repeater Field Types, used in the Field_View Backbone View.
+ * Creates the Repeater wrap and then fills it in with the template for the
+ * field type the model is for.
+ *
+ * @summary The render function for Repeater Field Types.
+ *
+ * @since 0.1.0
+ * @access private
+ */
+function field_view_render_repeater_field() {
+	let field_type = this.model.get( 'field' );
+
+	if ( ! field_type_is_a_repeater( field_type ) ) {
+		return;
+	}
+
+	let repeater   = window.jQuery( this.repeater_template() );
+	let list       = repeater.find( '.list-items' );
+
+	let model_object = this.model.toJSON();
+
+	if ( model_object.value && model_object.value.items ) {
+		for ( let i = 0; i < model_object.value.items.length; i++ ) {
+			list.append( this.repeater_wrap_template( model_object.value.items[ i ] ) );
+		}
+	}
+
+
+	return repeater;
+
 }
 
 export default {

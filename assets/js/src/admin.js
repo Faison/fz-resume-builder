@@ -44,6 +44,16 @@ let data = [
 			start: '06-09-2014',
 			end: '12-01-2016'
 		}
+	},
+	{
+		field: 'list',
+		value: {
+			items: [
+				'test 1',
+				'test 2',
+				'test 7'
+			]
+		}
 	}
 ];
 
