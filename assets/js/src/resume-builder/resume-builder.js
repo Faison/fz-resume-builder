@@ -35,12 +35,14 @@ function init( field_types, data ) {
 		return false;
 	}
 
-	let fields = new field_model.Field_Collection( data );
 	let builder = new builder_view.Builder_View();
 
-	fields.each( builder.render_fields, builder );
+	data.forEach( function( field_data ) {
+		let field = new field_model.Field_Model( field_data );
+		builder.render_fields( field );
+	} );
 
-	builder.on( 'add-field-click', add_field_click_handler, fields );
+	builder.on( 'add-field-click', add_field_click_handler );
 
 	return true;
 }
@@ -88,9 +90,8 @@ function register_field_types( field_types ) {
  * @param {Backbone.View} builder    - The Builder View the clicked button belongs to.
  */
 function add_field_click_handler( field_type, builder ) {
-	let new_field = this.add( { field: field_type } );
-
-	builder.render_fields( new_field );
+	let field = new field_model.Field_Model( { field: field_type } );
+	builder.render_fields( field );
 }
 
 export default {
