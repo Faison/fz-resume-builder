@@ -11,11 +11,11 @@ let Handlebars = window.Handlebars;
 
 let field_types = {
 	'section-title': {
-		'name': 'Section Title',
+		'label': 'Section Title',
 		'template_id': 'fz-resume-template-meta-field-section-title'
 	},
 	'subsection-title': {
-		'name': 'Subsection Title',
+		'label': 'Subsection Title',
 		'template_id': 'fz-resume-template-meta-field-subsection-title'
 	}
 };

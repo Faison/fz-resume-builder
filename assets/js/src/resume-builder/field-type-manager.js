@@ -49,7 +49,7 @@ function register_field_type( field_type, options ) {
 	}
 
 	// Make sure we have a name
-	if ( typeof options.name !== 'string' || ! options.name ) {
+	if ( typeof options.label !== 'string' || ! options.label ) {
 		return false;
 	}
 
@@ -64,7 +64,7 @@ function register_field_type( field_type, options ) {
 		return false;
 	}
 
-	let builder_view_success = builder_view.register_field_type_button( field_type, options.name );
+	let builder_view_success = builder_view.register_field_type_button( field_type, options.label );
 
 	if ( ! builder_view_success ) {
 		return false;
