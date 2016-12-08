@@ -15,6 +15,10 @@ let field_types = {
 	'subsection-title': {
 		'label': 'Subsection Title',
 		'template_id': 'fz-resume-template-meta-field-subsection-title'
+	},
+	'experience': {
+		'label': 'Experience',
+		'template_id': 'fz-resume-template-meta-field-experience'
 	}
 };
 
@@ -26,6 +30,15 @@ let data = [
 	{
 		field: 'section-title',
 		value: 'Shazam!'
+	},
+	{
+		field: 'experience',
+		value: {
+			name: '10up',
+			title: 'Senior Web Engineer',
+			start: '06-09-2014',
+			end: '12-01-2016'
+		}
 	}
 ];
 

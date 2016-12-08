@@ -35,6 +35,12 @@
 	<label>Subsection Title: <input type="text" value="{{ value }}" /></label>
 </script>
 
+<script type="text/x-handlebars-template" id="fz-resume-template-meta-field-experience">
+	<label>Name: <input type="text" value="{{ value.name }}" /></label><br />
+	<label>Title: <input type="text" value="{{ value.title }}" /></label><br />
+	<input type="text" value="{{ value.start }}" /> &mdash; <input type="text" value="{{ value.end }}" />
+</script>
+
 <script type="text/x-handlebars-template" id="fz-resume-template-list">
 	<ul>
 		{{#each items}}
