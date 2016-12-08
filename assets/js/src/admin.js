@@ -20,19 +20,6 @@ let field_types = {
 	}
 };
 
-let Field = Backbone.Model.extend( {
-	defaults: function() {
-		return {
-			field: '',
-			value: ''
-		};
-	}
-} );
-
-window.Field_Collection = Backbone.Collection.extend( {
-	model: Field
-} );
-
 $( document ).ready( function() {
 	resume_builder.register_field_types( field_types );
 

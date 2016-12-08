@@ -9,6 +9,7 @@
  */
 
 import field_view from './field-view';
+import field_model from './field-model';
 
 /**
  * A collection of Field Type Button Labels, indexed by the unique field type name.
@@ -81,7 +82,7 @@ let Builder_View = Backbone.View.extend( {
 
 		meta_box_area.prepend( this.$el );
 
-		this.field_collection = new Field_Collection( data );
+		this.field_collection = new field_model.Field_Collection( data );
 
 		this.listenTo( this.field_collection, 'add', this.render_fields );
 

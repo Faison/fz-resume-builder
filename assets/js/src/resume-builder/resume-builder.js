@@ -8,6 +8,7 @@
  */
 
 import field_type_manager from './field-type-manager';
+import field_model from './field-model';
 
 /**
  * Registers field types to use in the Resume Builder.
