@@ -37,10 +37,9 @@ function init( field_types, data ) {
 
 	let builder = new builder_view.Builder_View();
 
-	data.forEach( function( field_data ) {
-		let field = new field_model.Field_Model( field_data );
-		builder.render_fields( field );
-	} );
+	for ( let i = 0; i < data.length; i++ ) {
+		add_field_to_builder( data[ i ], builder );
+	}
 
 	builder.on( 'add-field-click', add_field_click_handler );
 
@@ -79,6 +78,23 @@ function register_field_types( field_types ) {
 }
 
 /**
+ * Adds a Field to the provided builder view. This first creates a Field_Model,
+ * then adds it to the provided Builder_View
+ *
+ * @summary Adds a Field to the provided builder view.
+ *
+ * @since 0.1.0
+ * @access private
+ *
+ * @param {Object}        field_data - The field data to add as a field to the Builder.
+ * @param {Backbone.View} builder    - The Builder View the clicked button belongs to.
+ */
+function add_field_to_builder( field_data, builder ) {
+	let field = new field_model.Field_Model( field_data );
+	builder.render_fields( field );
+}
+
+/**
  * Handles add field button clicks on the resume builder view.
  *
  * @summary Handles add field button clicks on the resume builder view.
@@ -90,8 +106,7 @@ function register_field_types( field_types ) {
  * @param {Backbone.View} builder    - The Builder View the clicked button belongs to.
  */
 function add_field_click_handler( field_type, builder ) {
-	let field = new field_model.Field_Model( { field: field_type } );
-	builder.render_fields( field );
+	add_field_to_builder( { field: field_type }, builder );
 }
 
 export default {
