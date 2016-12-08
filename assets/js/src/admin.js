@@ -4,8 +4,6 @@
  */
 
 import resume_builder from './resume-builder/resume-builder';
-import field_view from './resume-builder/field-view';
-import builder_view from './resume-builder/builder-view';
 
 let $ = window.jQuery;
 
