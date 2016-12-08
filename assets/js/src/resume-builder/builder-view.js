@@ -56,17 +56,6 @@ function register_field_type_button( field_type, field_label ) {
 	return true;
 }
 
-let data = [
-	{
-		field: 'section-title',
-		value: 'Experience'
-	},
-	{
-		field: 'section-title',
-		value: 'Shazam!'
-	}
-];
-
 /**
  * The Backbone View for the Builder.
  *
@@ -92,12 +81,7 @@ let Builder_View = Backbone.View.extend( {
 
 		meta_box_area.prepend( this.$el );
 
-		this.field_collection = new field_model.Field_Collection( data );
-
-		this.listenTo( this.field_collection, 'add', this.render_fields );
-
 		this.render();
-		this.field_collection.each( this.render_fields, this );
 	},
 	render: function() {
 		this.$el.html( this.template() );
@@ -109,7 +93,7 @@ let Builder_View = Backbone.View.extend( {
 	add_field: function( e ) {
 		let field_type = e.target.getAttribute( 'data-field-type' );
 
-		this.field_collection.add( { field: field_type } );
+		this.trigger( 'add-field-click', field_type, this );
 	},
 	remove_field: function( e ) {
 		e.target.parentElement.remove();

@@ -33,8 +33,4 @@ let data = [
 
 $( document ).ready( function() {
 	resume_builder.init( field_types, data );
-
-	var meta_view = new builder_view.Builder_View();
-
-	window.mv = meta_view;
 } );

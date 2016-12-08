@@ -9,6 +9,7 @@
 
 import field_type_manager from './field-type-manager';
 import field_model from './field-model';
+import builder_view from './builder-view';
 
 /**
  * Initializes the Resume Builder.
@@ -29,6 +30,19 @@ function init( field_types, data ) {
 	if ( ! registration_success ) {
 		return false;
 	}
+
+	if ( ! Array.isArray( data ) ) {
+		return false;
+	}
+
+	let fields = new field_model.Field_Collection( data );
+	let builder = new builder_view.Builder_View();
+
+	fields.each( builder.render_fields, builder );
+
+	builder.on( 'add-field-click', add_field_click_handler, fields );
+
+	return true;
 }
 
 /**
@@ -60,6 +74,23 @@ function register_field_types( field_types ) {
 	} );
 
 	return success;
+}
+
+/**
+ * Handles add field button clicks on the resume builder view.
+ *
+ * @summary Handles add field button clicks on the resume builder view.
+ *
+ * @since 0.1.0
+ * @access private
+ *
+ * @param {Object}        field_type - The field type of the button clicked.
+ * @param {Backbone.View} builder    - The Builder View the clicked button belongs to.
+ */
+function add_field_click_handler( field_type, builder ) {
+	let new_field = this.add( { field: field_type } );
+
+	builder.render_fields( new_field );
 }
 
 export default {
