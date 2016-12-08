@@ -69,6 +69,7 @@ function register_field_type_button( field_type, field_label ) {
 let Builder_View = Backbone.View.extend( {
 	tagName: 'div',
 	template: '',
+	add_button_template: '',
 	events: {
 		'click .add-button': 'add_field',
 		'click .fz-resume-remove': 'remove_field'
@@ -95,6 +96,9 @@ function builder_view_initialize() {
 	let template_el = document.getElementById( 'fz-resume-template-meta-box' );
 	this.template = Handlebars.compile( template_el.innerHTML );
 
+	let button_wrap_el = document.getElementById( 'fz-resume-template-field-button' );
+	this.add_button_template = Handlebars.compile( button_wrap_el.innerHTML );
+
 	let meta_box_area = window.jQuery( document.getElementById( 'postbox-container-2' ) );
 
 	meta_box_area.prepend( this.$el );
@@ -117,6 +121,24 @@ function builder_view_initialize() {
  */
 function builder_view_render() {
 	this.$el.html( this.template() );
+
+	let field_types = Object.keys( field_type_button_labels );
+
+	if ( 0 >= field_types.length ) {
+		return;
+	}
+
+	let $button_wrap = this.$( '.add-button-wrap' );
+
+	for ( let i = 0; i < field_types.length; i++ ) {
+		let field_type = field_types[ i ];
+		let button_data = {
+			field_type: field_type,
+			field_label: field_type_button_labels[ field_type ]
+		};
+
+		$button_wrap.append( this.add_button_template( button_data ) );
+	}
 }
 
 /**

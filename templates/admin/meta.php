@@ -14,11 +14,13 @@
 		<div class="inside">
 			<div class="meta-fields-test"></div>
 			<ul class="meta-fields"></ul>
-			Add:
-			<button type="button" class="add-button" data-field-type="section-title">Section Title</button>
-			<button type="button" class="add-button" data-field-type="subsection-title">Subsection Title</button>
+			Add: <span class="add-button-wrap"></span>
 		</div>
 	</div>
+</script>
+
+<script type="text/x-handlebars-template" id="fz-resume-template-field-button">
+	<button type="button" class="add-button" data-field-type="{{ field_type }}">{{ field_label }}</button>
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-field-wrap">
