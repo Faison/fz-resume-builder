@@ -33,10 +33,44 @@ add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_resume_meta_box' );
  * Displays the Resume Builder meta box and makes sure the required JS and CSS is enqueued.
  *
  * @since 0.1.0
+ *
+ * @param \WP_Post $post The post currently being edited.
  */
-function display_resume_builder_meta_box() {
+function display_resume_builder_meta_box( $post ) {
 	enqueue_meta_scripts();
 	enqueue_meta_styles();
+
+	$resume_data = array(
+		array(
+			'field' => 'section-title',
+			'value' => 'Experience',
+		),
+		array(
+			'field' => 'section-title',
+			'value' => 'Shazam!',
+		),
+		array(
+			'field' => 'experience',
+			'value' => array(
+				'name' => '10up',
+				'title' => 'Senior Web Engineer',
+				'start' => '06-09-2014',
+				'end'   => '12-01-2016',
+			),
+		),
+		array(
+			'field' => 'list',
+			'value' => array(
+				'items' => array(
+					'test 1',
+					'test 2',
+					'test 7',
+				),
+			),
+		),
+	);
+
+	wp_localize_script( 'fz-resume-admin', 'fz_resume_field_data', $resume_data );
 
 	add_action( 'admin_footer', __NAMESPACE__ . '\add_meta_templates' );
 }
