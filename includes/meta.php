@@ -32,3 +32,14 @@ function enqueue_meta_scripts() {
 }
 
 add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_meta_scripts' );
+
+function enqueue_meta_styles() {
+	wp_enqueue_style(
+		'fz-resume-admin',
+		FZ_RESUME_URL . '/assets/css/admin.css',
+		array(),
+		FZ_RESUME_VERSION
+	);
+}
+
+add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_meta_styles' );

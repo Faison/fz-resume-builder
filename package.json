@@ -5,7 +5,9 @@
   "author": "Faison Zutavern",
   "scripts": {
     "wp": "node_modules/.bin/webpack",
-    "wpw": "node_modules/.bin/webpack -w"
+    "wpw": "node_modules/.bin/webpack -w",
+    "sass": "node_modules/.bin/node-sass --source-map assets/css/admin.css.map assets/css/sass/admin.scss assets/css/admin.css",
+    "sassw": "node_modules/.bin/node-sass -w --source-map assets/css/admin.css.map assets/css/sass/admin.scss assets/css/admin.css"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
@@ -14,6 +16,7 @@
     "babel-preset-es2015": "^6.14.0",
     "jshint": "^2.9.3",
     "jshint-loader": "^0.8.3",
+    "node-sass": "^3.13.0",
     "webpack": "^1.13.2"
   }
 }

@@ -1,0 +1,40 @@
+#fz-resume-meta-box {
+	.meta-fields {
+		> li {
+			position: relative;
+			background: #fff;
+			border: 1px solid #eee;
+			border-radius: 2px;
+			padding: 0.5em 2em;
+
+			&:active {
+				box-shadow: 0 7px 7px -1px;
+			}
+		}
+
+		.fz-resume-handle {
+			position: absolute;
+			top: 0.5em;
+			left: 3px;
+			cursor: -webkit-grab;
+			cursor: -moz-grab;
+			cursor: grab;
+
+			&:active {
+				cursor: -webkit-grabbing;
+				cursor: -moz-grabbing;
+				cursor: grabbing;
+			}
+		}
+
+		.fz-resume-remove {
+			position: absolute;
+			top: 0.5em;
+			right: 3px;
+			cursor: pointer;
+		}
+
+		.meta-field-inside {
+		}
+	}
+}
