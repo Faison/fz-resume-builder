@@ -17,6 +17,7 @@
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-field-wrap">
+	<input type="hidden" name="fz_resume[{{ field_number }}][field]" value="{{ field_type }}" />
 	<span class="fz-resume-handle dashicons dashicons-sort"></span>
 	<div class="meta-field-inside"></div>
 	<span class="fz-resume-remove dashicons dashicons-dismiss"></span>

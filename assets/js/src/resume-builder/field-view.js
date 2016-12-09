@@ -183,9 +183,10 @@ function field_view_initialize() {
  * @access private
  */
 function field_view_render() {
-	this.$el.html( this.wrap_template() );
+	let field_number = this.model.get( 'field_number' );
+	let field_type   = this.model.get( 'field' );
 
-	let field_type = this.model.get( 'field' );
+	this.$el.html( this.wrap_template( { field_number: field_number, field_type: field_type } ) );
 
 	if ( field_type_is_a_repeater( field_type ) ) {
 		this.render_repeater_field();
