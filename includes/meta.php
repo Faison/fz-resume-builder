@@ -78,6 +78,11 @@ function enqueue_meta_scripts() {
 		FZ_RESUME_VERSION,
 		true
 	);
+
+	$field_types = get_default_field_types();
+	$field_types = apply_filters( 'fz_resume_field_types', $field_types );
+
+	wp_localize_script( 'fz-resume-admin', 'fz_resume_field_types', $field_types );
 }
 
 /**
@@ -98,5 +103,34 @@ function enqueue_meta_styles() {
 		FZ_RESUME_URL . '/assets/css/admin.css',
 		array( 'fz-resume-jquery-ui' ),
 		FZ_RESUME_VERSION
+	);
+}
+
+/**
+ * Returns the default field types.
+ *
+ * @since 0.1.0
+ *
+ * @return array The default field types.
+ */
+function get_default_field_types() {
+	return array(
+		'section-title' => array(
+			'label'       => esc_html__( 'Section Title', 'fz_resume' ),
+			'template_id' => 'fz-resume-template-meta-field-section-title',
+		),
+		'subsection-title' => array(
+			'label'       => esc_html__( 'Subsection Title', 'fz_resume' ),
+			'template_id' => 'fz-resume-template-meta-field-subsection-title',
+		),
+		'experience' => array(
+			'label'       => esc_html__( 'Experience', 'fz_resume' ),
+			'template_id' => 'fz-resume-template-meta-field-experience',
+		),
+		'list' => array(
+			'label'       => esc_html__( 'List', 'fz_resume' ),
+			'repeater'    => true,
+			'template_id' => 'fz-resume-template-meta-field-list-item',
+		),
 	);
 }

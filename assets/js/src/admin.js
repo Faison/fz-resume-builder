@@ -7,26 +7,6 @@ import resume_builder from './resume-builder/resume-builder';
 
 let $ = window.jQuery;
 
-let field_types = {
-	'section-title': {
-		'label': 'Section Title',
-		'template_id': 'fz-resume-template-meta-field-section-title'
-	},
-	'subsection-title': {
-		'label': 'Subsection Title',
-		'template_id': 'fz-resume-template-meta-field-subsection-title'
-	},
-	'experience': {
-		'label': 'Experience',
-		'template_id': 'fz-resume-template-meta-field-experience'
-	},
-	'list': {
-		'label': 'List',
-		'repeater': true,
-		'template_id': 'fz-resume-template-meta-field-list-item'
-	}
-};
-
 let data = [
 	{
 		field: 'section-title',
@@ -58,5 +38,6 @@ let data = [
 ];
 
 $( document ).ready( function() {
+	let field_types = window.fz_resume_field_types;
 	resume_builder.init( field_types, data );
 } );
