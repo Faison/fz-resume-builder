@@ -5,17 +5,10 @@
 ?>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-box">
-	<div id="fz-resume-meta-box" class="postbox ">
-		<button type="button" class="handlediv button-link" aria-expanded="true">
-			<span class="screen-reader-text">Toggle panel: Resume Sections</span>
-			<span class="toggle-indicator" aria-hidden="true"></span>
-		</button>
-		<h2 class="hndle ui-sortable-handle"><span>Resume Sections</span></h2>
-		<div class="inside">
-			<div class="meta-fields-test"></div>
-			<ul class="meta-fields"></ul>
-			Add: <span class="add-button-wrap"></span>
-		</div>
+	<div>
+		<div class="meta-fields-test"></div>
+		<ul class="meta-fields"></ul>
+		Add: <span class="add-button-wrap"></span>
 	</div>
 </script>
 

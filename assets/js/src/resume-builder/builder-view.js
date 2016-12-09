@@ -99,9 +99,9 @@ function builder_view_initialize() {
 	let button_wrap_el = document.getElementById( 'fz-resume-template-field-button' );
 	this.add_button_template = Handlebars.compile( button_wrap_el.innerHTML );
 
-	let meta_box_area = window.jQuery( document.getElementById( 'postbox-container-2' ) );
+	let meta_box_inside = window.jQuery( '#fz-resume-meta-box .inside' );
 
-	meta_box_area.prepend( this.$el );
+	meta_box_inside.prepend( this.$el );
 
 	this.render();
 

@@ -1,18 +1,60 @@
 <?php
 /**
- * Meta fields for a Resume.
+ * Meta fields for the Resume Builder.
  *
  * @since 0.1.0
  */
 
 namespace FZ_Resume;
 
+/**
+ * Adds the Resume Builder Meta Box.
+ *
+ * @since 0.1.0
+ */
+function add_resume_meta_box() {
+	if ( ! is_admin() ) {
+		return;
+	}
+
+	add_meta_box(
+		'fz-resume-meta-box',
+		esc_html__( 'Resume Builder', 'fz_resume' ),
+		__NAMESPACE__ . '\display_resume_builder_meta_box',
+		'page',
+		'normal',
+		'high'
+	);
+}
+
+add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_resume_meta_box' );
+
+/**
+ * Displays the Resume Builder meta box and makes sure the required JS and CSS is enqueued.
+ *
+ * @since 0.1.0
+ */
+function display_resume_builder_meta_box() {
+	enqueue_meta_scripts();
+	enqueue_meta_styles();
+
+	add_action( 'admin_footer', __NAMESPACE__ . '\add_meta_templates' );
+}
+
+/**
+ * Adds the Resume Builder Handlebar templates to the page.
+ *
+ * @since 0.1.0
+ */
 function add_meta_templates() {
 	include FZ_RESUME_PATH . 'templates/admin/meta.php';
 }
 
-add_action( 'admin_footer', __NAMESPACE__ . '\add_meta_templates' );
-
+/**
+ * Enqueues the scripts needed to ue the Resume Builder.
+ *
+ * @since 0.1.0
+ */
 function enqueue_meta_scripts() {
 	wp_register_script(
 		'fz-resume-handlebars',
@@ -38,8 +80,11 @@ function enqueue_meta_scripts() {
 	);
 }
 
-add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_meta_scripts' );
-
+/**
+ * Enqueues the styles needed for the Resume Builder.
+ *
+ * @since 0.1.0
+ */
 function enqueue_meta_styles() {
 	wp_register_style(
 		'fz-resume-jquery-ui',
@@ -55,5 +100,3 @@ function enqueue_meta_styles() {
 		FZ_RESUME_VERSION
 	);
 }
-
-add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_meta_styles' );
