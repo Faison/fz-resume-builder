@@ -130,7 +130,8 @@ let Field_View = window.Backbone.View.extend( {
 	render_repeater_field: field_view_render_repeater_field,
 	render_repeater_item: field_view_render_repeater_item,
 	add_repeater_item: function( e ) {
-		this.render_repeater_item();
+		let model_object = this.model.toJSON();
+		this.render_repeater_item( null, model_object.field_number );
 	},
 	remove_repeater_item: function( e ) {
 		e.target.parentElement.remove();
@@ -148,6 +149,8 @@ let Field_View = window.Backbone.View.extend( {
  * @access private
  */
 function field_view_initialize() {
+	this.next_item_num = 0;
+
 	let wrap_el = document.getElementById( 'fz-resume-template-meta-field-wrap' );
 	this.wrap_template = Handlebars.compile( wrap_el.innerHTML );
 
@@ -218,7 +221,7 @@ function field_view_render_repeater_field() {
 
 	if ( model_object.value && model_object.value.items ) {
 		for ( let i = 0; i < model_object.value.items.length; i++ ) {
-			this.render_repeater_item( model_object.value.items[ i ] );
+			this.render_repeater_item( model_object.value.items[ i ], model_object.field_number );
 		}
 	}
 }
@@ -233,10 +236,14 @@ function field_view_render_repeater_field() {
  *
  * @param {Object|string} item - The item value to render in the repeater field.
  */
-function field_view_render_repeater_item( item ) {
+function field_view_render_repeater_item( item, field_number ) {
 	let field_type = this.model.get( 'field' );
 	let wrap       = window.jQuery( this.repeater_wrap_template() );
-	let item_field = field_templates[ field_type ]( item );
+	let item_field = field_templates[ field_type ]( {
+		value: item,
+		field_number: field_number,
+		item_number: this.next_item_num++
+	} );
 
 	wrap.find( '.list-item-inside').append( item_field );
 

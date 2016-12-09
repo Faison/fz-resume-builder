@@ -23,17 +23,17 @@
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-field-section-title">
-	<label>Section Title: <input type="text" class="regular-text" value="{{ value }}" /></label>
+	<label>Section Title: <input type="text" class="regular-text" name="fz_resume[{{ field_number }}][value]" value="{{ value }}" /></label>
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-field-subsection-title">
-	<label>Subsection Title: <input type="text" class="regular-text" value="{{ value }}" /></label>
+	<label>Subsection Title: <input type="text" class="regular-text" name="fz_resume[{{ field_number }}][value]" value="{{ value }}" /></label>
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-field-experience">
-	<label>Name: <input type="text" class="regular-text" value="{{ value.name }}" /></label><br />
-	<label>Title: <input type="text" class="regular-text" value="{{ value.title }}" /></label><br />
-	<input type="text" class="fz-resume-date" value="{{ value.start }}" /> &mdash; <input type="text" class="fz-resume-date" value="{{ value.end }}" />
+	<label>Name: <input type="text" class="regular-text" name="fz_resume[{{ field_number }}][value][name]" value="{{ value.name }}" /></label><br />
+	<label>Title: <input type="text" class="regular-text" name="fz_resume[{{ field_number }}][value][title]" value="{{ value.title }}" /></label><br />
+	<input type="text" class="fz-resume-date" name="fz_resume[{{ field_number }}][value][start]" value="{{ value.start }}" /> &mdash; <input type="text" class="fz-resume-date" name="fz_resume[{{ field_number }}][value][end]" value="{{ value.end }}" />
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-repeater">
@@ -53,5 +53,5 @@
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-field-list-item">
-	<input type="text" class="regular-text" value="{{ this }}" />
+	<input type="text" class="regular-text" name="fz_resume[{{ field_number }}][value][{{ item_number }}]" value="{{ value }}" />
 </script>

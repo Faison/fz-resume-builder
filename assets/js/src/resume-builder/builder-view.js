@@ -93,6 +93,8 @@ let Builder_View = Backbone.View.extend( {
  * @access private
  */
 function builder_view_initialize() {
+	this.next_field_num = 0;
+
 	let template_el = document.getElementById( 'fz-resume-template-meta-box' );
 	this.template = Handlebars.compile( template_el.innerHTML );
 
@@ -158,6 +160,7 @@ function builder_view_render() {
  * @access private
  */
 function builder_view_render_fields( field ) {
+	field.set( 'field_number', this.next_field_num++ );
 	let view = new field_view.Field_View( { model: field } );
 	this.$('.meta-fields').append( view.render().el );
 }
