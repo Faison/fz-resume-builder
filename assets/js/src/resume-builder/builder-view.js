@@ -109,6 +109,14 @@ function builder_view_initialize() {
 		items: '> li',
 		handle: '> .fz-resume-handle'
 	} );
+
+	this.$el.delegate( '.fz-resume-date', 'focusin', function() {
+		window.jQuery( this).datepicker( {
+			dateFormat: 'mm-dd-yy',
+			changeMonth: true,
+			changeYear: true
+		} );
+	} );
 }
 
 /**

@@ -25,7 +25,14 @@ function enqueue_meta_scripts() {
 	wp_enqueue_script(
 		'fz-resume-admin',
 		FZ_RESUME_URL . '/assets/js/admin.js',
-		array( 'fz-resume-handlebars', 'jquery', 'backbone', 'underscore', 'jquery-ui-sortable' ),
+		array(
+			'fz-resume-handlebars',
+			'jquery',
+			'backbone',
+			'underscore',
+			'jquery-ui-sortable',
+			'jquery-ui-datepicker',
+		),
 		FZ_RESUME_VERSION,
 		true
 	);
@@ -34,10 +41,17 @@ function enqueue_meta_scripts() {
 add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\enqueue_meta_scripts' );
 
 function enqueue_meta_styles() {
+	wp_register_style(
+		'fz-resume-jquery-ui',
+		FZ_RESUME_URL . '/assets/css/vendor/jquery-ui/jquery-ui.css',
+		array(),
+		'1.12.1'
+	);
+
 	wp_enqueue_style(
 		'fz-resume-admin',
 		FZ_RESUME_URL . '/assets/css/admin.css',
-		array(),
+		array( 'fz-resume-jquery-ui' ),
 		FZ_RESUME_VERSION
 	);
 }

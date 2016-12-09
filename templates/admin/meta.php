@@ -40,7 +40,7 @@
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-field-experience">
 	<label>Name: <input type="text" class="regular-text" value="{{ value.name }}" /></label><br />
 	<label>Title: <input type="text" class="regular-text" value="{{ value.title }}" /></label><br />
-	<input type="text" value="{{ value.start }}" /> &mdash; <input type="text" value="{{ value.end }}" />
+	<input type="text" class="fz-resume-date" value="{{ value.start }}" /> &mdash; <input type="text" class="fz-resume-date" value="{{ value.end }}" />
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-repeater">
