@@ -30,16 +30,16 @@
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-field-section-title">
-	<label>Section Title: <input type="text" value="{{ value }}" /></label>
+	<label>Section Title: <input type="text" class="regular-text" value="{{ value }}" /></label>
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-field-subsection-title">
-	<label>Subsection Title: <input type="text" value="{{ value }}" /></label>
+	<label>Subsection Title: <input type="text" class="regular-text" value="{{ value }}" /></label>
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-field-experience">
-	<label>Name: <input type="text" value="{{ value.name }}" /></label><br />
-	<label>Title: <input type="text" value="{{ value.title }}" /></label><br />
+	<label>Name: <input type="text" class="regular-text" value="{{ value.name }}" /></label><br />
+	<label>Title: <input type="text" class="regular-text" value="{{ value.title }}" /></label><br />
 	<input type="text" value="{{ value.start }}" /> &mdash; <input type="text" value="{{ value.end }}" />
 </script>
 
@@ -60,5 +60,5 @@
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-field-list-item">
-	<input type="text" value="{{ this }}" />
+	<input type="text" class="regular-text" value="{{ this }}" />
 </script>
