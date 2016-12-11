@@ -56,7 +56,7 @@ function sanitize_resume_meta( $values ) {
 			$sanitized_value['start'] = ( $start ) ? $start->format( 'm-d-Y' ) : '';
 
 			$end = date_create_from_format( 'm-d-Y', $value['end'] );
-			$sanitized_value['end'] = ( $end ) ? $start->format( 'm-d-Y' ) : '';
+			$sanitized_value['end'] = ( $end ) ? $end->format( 'm-d-Y' ) : '';
 		} else if ( 'list' === $field_type ) {
 			$sanitized_value['items'] = array();
 			foreach ( $value as $v ) {
