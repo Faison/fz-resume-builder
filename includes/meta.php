@@ -8,6 +8,72 @@
 namespace FZ_Resume;
 
 /**
+ * Registers the Resume Meta with its sanitization callback.
+ *
+ * @since 0.1.0
+ */
+function register_resume_meta() {
+	register_meta( 'post', 'fz_resume_meta', array(
+		'type'              => 'array',
+		'description'       => 'The Resume Builder meta.',
+		'single'            => true,
+		'sanitize_callback' => __NAMESPACE__ . '\sanitize_resume_meta',
+		'show_in_rest'      => false,
+	) );
+}
+
+add_action( 'fz_resume_init', __NAMESPACE__ . '\register_resume_meta' );
+
+/**
+ * Sanitizes the Resume Builder Meta Values.
+ *
+ * @param array $values An array of field values for the resume builder.
+ *
+ * @return array|string The sanitized values for the resume builder, empty string if no values.
+ */
+function sanitize_resume_meta( $values ) {
+	if ( empty( $values ) || ! is_array( $values ) ) {
+		return '';
+	}
+
+	$sanitized_values = array();
+
+	foreach ( $values as $value_set ) {
+		$field_type = $value_set['field'];
+		$value      = $value_set['value'];
+
+		$sanitized_value = '';
+
+		if ( 'section-title' === $field_type ) {
+			$sanitized_value = sanitize_text_field( $value );
+		} else if ( 'subsection-title' === $field_type ) {
+			$sanitized_value = sanitize_text_field( $value );
+		} else if ( 'experience' === $field_type ) {
+			$sanitized_value['name']  = sanitize_text_field( $value['name'] );
+			$sanitized_value['title'] = sanitize_text_field( $value['title'] );
+
+			$start = date_create_from_format( 'm-d-Y', $value['start'] );
+			$sanitized_value['start'] = ( $start ) ? $start->format( 'm-d-Y' ) : '';
+
+			$end = date_create_from_format( 'm-d-Y', $value['end'] );
+			$sanitized_value['end'] = ( $end ) ? $start->format( 'm-d-Y' ) : '';
+		} else if ( 'list' === $field_type ) {
+			$sanitized_value['items'] = array();
+			foreach ( $value as $v ) {
+				$sanitized_value['items'][] = sanitize_text_field( $v );
+			}
+		}
+
+		$sanitized_values[] = array(
+			'field' => $field_type,
+			'value' => $sanitized_value,
+		);
+	}
+
+	return $sanitized_values;
+}
+
+/**
  * Adds the Resume Builder Meta Box.
  *
  * @since 0.1.0
@@ -40,35 +106,11 @@ function display_resume_builder_meta_box( $post ) {
 	enqueue_meta_scripts();
 	enqueue_meta_styles();
 
-	$resume_data = array(
-		array(
-			'field' => 'section-title',
-			'value' => 'Experience',
-		),
-		array(
-			'field' => 'section-title',
-			'value' => 'Shazam!',
-		),
-		array(
-			'field' => 'experience',
-			'value' => array(
-				'name' => '10up',
-				'title' => 'Senior Web Engineer',
-				'start' => '06-09-2014',
-				'end'   => '12-01-2016',
-			),
-		),
-		array(
-			'field' => 'list',
-			'value' => array(
-				'items' => array(
-					'test 1',
-					'test 2',
-					'test 7',
-				),
-			),
-		),
-	);
+	$resume_data = get_post_meta( $post->ID, 'fz_resume_meta', true );
+
+	if ( empty( $resume_data ) ) {
+		$resume_data = array();
+	}
 
 	wp_localize_script( 'fz-resume-admin', 'fz_resume_field_data', $resume_data );
 
@@ -168,3 +210,30 @@ function get_default_field_types() {
 		),
 	);
 }
+
+/**
+ * Saves the Resume Builder meta.
+ *
+ * @param int $post_id The ID of the post being saved.
+ */
+function save_resume_meta( $post_id ) {
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	if ( 'page' !== get_post_type( $post_id ) ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	if ( empty( $_POST['fz_resume'] ) ) {
+		delete_post_meta( $post_id, 'fz_resume_meta' );
+	} else {
+		update_post_meta( $post_id, 'fz_resume_meta', $_POST['fz_resume'] );
+	}
+}
+
+add_action( 'save_post', __NAMESPACE__ . '\save_resume_meta' );
