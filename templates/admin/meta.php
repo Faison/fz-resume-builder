@@ -54,5 +54,5 @@
 </script>
 
 <script type="text/x-handlebars-template" id="fz-resume-template-meta-field-list-item">
-	<input type="text" class="regular-text" name="fz_resume[{{ field_number }}][value][{{ item_number }}]" value="{{ value }}" />
+	<input type="text" class="large-text" name="fz_resume[{{ field_number }}][value][{{ item_number }}]" value="{{ value }}" />
 </script>
