@@ -103,6 +103,8 @@ add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_resume_meta_box' );
  * @param \WP_Post $post The post currently being edited.
  */
 function display_resume_builder_meta_box( $post ) {
+	wp_nonce_field( 'fz_resume_builder_meta', 'fz_resume_builder_nonce' );
+
 	enqueue_meta_scripts();
 	enqueue_meta_styles();
 
@@ -222,6 +224,10 @@ function save_resume_meta( $post_id ) {
 	}
 
 	if ( 'page' !== get_post_type( $post_id ) ) {
+		return;
+	}
+
+	if ( ! isset( $_POST['fz_resume_builder_nonce' ] ) || ! wp_verify_nonce( $_POST['fz_resume_builder_nonce'], 'fz_resume_builder_meta' ) ) {
 		return;
 	}
 
