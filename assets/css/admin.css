@@ -1,0 +1,55 @@
+#fz-resume-meta-box .meta-fields > li {
+  position: relative;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  padding: 0.5em 2em; }
+  #fz-resume-meta-box .meta-fields > li.ui-sortable-helper {
+    box-shadow: 0 7px 7px -1px; }
+
+#fz-resume-meta-box .meta-fields .fz-resume-handle {
+  position: absolute;
+  top: 0.5em;
+  left: 3px;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab; }
+  #fz-resume-meta-box .meta-fields .fz-resume-handle:active {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing; }
+
+#fz-resume-meta-box .meta-fields .fz-resume-remove {
+  position: absolute;
+  top: 0.5em;
+  right: 3px;
+  cursor: pointer; }
+
+#fz-resume-meta-box .meta-fields .meta-field-inside .list-items > li {
+  position: relative;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  padding: 0.5em 2em; }
+  #fz-resume-meta-box .meta-fields .meta-field-inside .list-items > li.ui-sortable-helper {
+    box-shadow: 0 7px 7px -1px; }
+
+#fz-resume-meta-box .meta-fields .meta-field-inside .list-items .fz-resume-list-handle {
+  position: absolute;
+  top: 0.5em;
+  left: 3px;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab; }
+  #fz-resume-meta-box .meta-fields .meta-field-inside .list-items .fz-resume-list-handle:active {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing; }
+
+#fz-resume-meta-box .meta-fields .meta-field-inside .list-items .fz-resume-list-remove {
+  position: absolute;
+  top: 0.5em;
+  right: 3px;
+  cursor: pointer; }
+
+/*# sourceMappingURL=admin.css.map */
