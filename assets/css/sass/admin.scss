@@ -1,0 +1,65 @@
+@mixin sortable-wrap() {
+	position: relative;
+	background: #fff;
+	border: 1px solid #eee;
+	border-radius: 2px;
+	padding: 0.5em 2em;
+
+	&.ui-sortable-helper {
+		box-shadow: 0 7px 7px -1px;
+	}
+}
+
+@mixin sortable-handle() {
+	position: absolute;
+	top: 0.5em;
+	left: 3px;
+	cursor: -webkit-grab;
+	cursor: -moz-grab;
+	cursor: grab;
+
+	&:active {
+		cursor: -webkit-grabbing;
+		cursor: -moz-grabbing;
+		cursor: grabbing;
+	}
+}
+
+@mixin sortable-remove() {
+	position: absolute;
+	top: 0.5em;
+	right: 3px;
+	cursor: pointer;
+}
+
+#fz-resume-meta-box {
+	.meta-fields {
+		> li {
+			@include sortable-wrap();
+		}
+
+		.fz-resume-handle {
+			@include sortable-handle();
+		}
+
+		.fz-resume-remove {
+			@include sortable-remove();
+		}
+
+		.meta-field-inside {
+			.list-items {
+				> li {
+					@include sortable-wrap();
+				}
+
+				.fz-resume-list-handle {
+					@include sortable-handle();
+				}
+
+				.fz-resume-list-remove {
+					@include sortable-remove();
+				}
+			}
+		}
+	}
+}
