@@ -58,8 +58,12 @@
 
 	  _resumeBuilder2.default.init(field_types, data);
 	}); /**
+	     * The starting point for the Resume Builder. Handles passing the field types
+	     * and resume data into the resume builder to initialize it.
 	     *
+	     * @summary The starting point for the Resume Builder.
 	     *
+	     * @since 0.1.0
 	     */
 
 /***/ },
